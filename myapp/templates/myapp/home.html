@@ -1,0 +1,162 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<div class="dashboard">
+    <section class="total-aperd">
+        <strong>Total APERD : </strong><p>{{ aperd_count }}</p>
+    </section>
+    
+    <section class="main-box">
+        <div class="header-main-box">
+            <div class="left-header">
+                <h1>APERD Lists</h1>
+            </div>
+
+            <div class="right-side-main-box">
+                <form class="search-wrapper" method="get" action="" name="q">
+                    <input type="text" id="input-box" placeholder="Search..." name="q">
+                    <button type="submit">Search</button>
+                </form>
+                <a href="{% url 'add-aperd' %}">
+                    <button class="add-button">Add New APERD <i class="fa fa-plus"></i></button>
+                </a>
+            </div>
+        </div>
+        <div class="body-main-box">
+            <ul class="list">
+                {% for aperd in aperds %}
+                <li>
+                    <a href="{% url 'aperd' aperd.id %}" class="list-item">{{ aperd.name }}</a>
+                    <div class="button">
+                        <button type="submit" id="edit-button"><a href="{% url 'edit-aperd' aperd.id %}">Edit <i class="fa fa-pencil"></i></a></button>
+                        <button type="submit" id="delete-button"><a href="{% url 'delete-aperd' aperd.id %}">Delete <i class="fa fa-trash"></i></a></a></button>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        
+        <a href="{% url 'home' %}">
+            <button type="submit" class="show-all-button">Show All</button>
+        </a>
+    </section>
+    
+    <div class="summary">
+        <div class="card">
+            Total AUM<br>
+            <strong>Rp {{ total_aum }}</strong>
+        </div>
+        <!-- <div class="card">
+            Total NOA<br>
+            <strong>{{ total_noa }} accounts</strong>
+        </div> -->
+    </div>
+    
+
+    <div class="container">
+        <!-- AUM by APERD -->
+        <div class="chart-box">
+            <h2>AUM by APERD</h2>
+            <canvas id="aumByAperdChart"></canvas>
+        </div>
+
+        <!-- AUM by Product -->
+        <div class="chart-box">
+            <h2>AUM by Product</h2>
+            <canvas id="aumByProductChart"></canvas>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Inject the two Python lists directly -->
+<script id="bar-aperd-data" type="application/json">
+  {{ aperd_data|safe }}
+</script>
+<script id="bar-product-data" type="application/json">
+  {{ prod_data|safe }}
+</script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // parse our two lists
+  const aperdList   = JSON.parse(document.getElementById('bar-aperd-data').textContent);
+  const productList = JSON.parse(document.getElementById('bar-product-data').textContent);
+
+  // build label & value arrays
+  const aperdLabels = aperdList.map(o => o.name);
+  const aperdVals   = aperdList.map(o => o.aum);
+  const prodLabels  = productList.map(o => o.name);
+  const prodVals    = productList.map(o => o.aum);
+
+  // AUM by APERD
+  new Chart(
+    document.getElementById('aumByAperdChart').getContext('2d'),
+    {
+      type: 'bar',
+      data: {
+        labels: aperdLabels,
+        datasets: [{
+          label: 'AUM by APERD (IDR)',
+          data: aperdVals,
+          backgroundColor: 'rgba(54,162,235,0.5)',
+          borderColor:   'rgba(54,162,235,1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: v => new Intl.NumberFormat('id-ID',{
+                style: 'currency', currency: 'IDR', maximumFractionDigits: 0
+              }).format(v)
+            }
+          }
+        }
+      }
+    }
+  );
+
+  // AUM by Product
+  new Chart(
+    document.getElementById('aumByProductChart').getContext('2d'),
+    {
+      type: 'bar',
+      data: {
+        labels: prodLabels,
+        datasets: [{
+          label: 'AUM by Product (IDR)',
+          data: prodVals,
+          backgroundColor: 'rgba(75,192,192,0.5)',
+          borderColor:   'rgba(75,192,192,1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: v => new Intl.NumberFormat('id-ID',{
+                style: 'currency', currency: 'IDR', maximumFractionDigits: 0
+              }).format(v)
+            }
+          }
+        }
+      }
+    }
+  );
+</script>
+{% endblock %}

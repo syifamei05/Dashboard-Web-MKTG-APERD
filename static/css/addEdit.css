@@ -1,0 +1,268 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+:root {
+    --color-main: hsl(211, 75%, 45%);
+    --color-main-hover: rgb(14, 68, 126);
+    --color-delete: rgb(234, 96, 96);
+    --color-delete-hover: rgb(165, 41, 41);
+    --color-dark: #a6c4e3;
+    --color-dark-hover: #4f6276;
+    --color-light: #d9e7f7;
+    --color-light-hover: #597ca4;
+}
+
+/* Navbar */
+.navbar {
+    background: #0056b3;  /* Blue background */
+    padding: 10px 20px;
+    box-shadow: 0px 5px hsl(211, 99%, 27%);
+    margin-bottom: 30px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    height: 60px;
+}
+
+.title {
+    color: white;
+    font-size: 30px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.date {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.logout-button {
+    background: white;
+    color: #0056b3;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logout-button i {
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background: #e0e0e0;
+    transition: 0.3s ease-in-out;
+}
+
+.main-box {
+    background-color: #f9f9f9;
+    padding: 20px;
+    padding-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.main-box h1 {
+    font-size: 24px;
+    margin: 20px;
+    justify-self: center;
+}
+
+.header-add-edit-aperd-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.main-box .child-box {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.aperd-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.main-box input[type="text"],
+.main-box select,
+.main-box textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 14px;
+    resize: none;
+}
+
+.confirm-button {
+    background-color: #5d93cc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-button:hover {
+    background-color: rgb(22, 62, 104);
+}
+
+.main-box select option[disabled] {
+    color: transparent; /* Make the placeholder text transparent */
+}
+
+/* BACK BUTTON STARTS */
+
+.back-button-box {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    color: #333; 
+    border-radius: 5px; 
+    text-decoration: none; 
+    font-size: 16px; 
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.back-button:hover {
+    background-color: #e0e0e0; /* Hover background color */
+    color: #000; /* Hover text color */
+}
+
+.back-button i {
+    margin-right: 5px; /* Space between icon and text */
+}
+/* BACK BUTTON ENDS */
+
+/* ============================= */
+/* MEDIA QUERIES (RESPONSIVE)   */
+/* ============================= */
+
+/* Tablet atau layar lebih kecil dari 768px */
+@media (max-width: 768px) {
+    .dashboard {
+        margin: 20px; 
+    }
+
+    .header-main-box {
+        flex-direction: column;
+        align-items: flex-start; 
+        margin: 10px;           
+    }
+
+    .right-side-main-box {
+        width: 100%;            /* Lebar penuh agar muat di bawah heading */
+        align-items: flex-start; /* Biar search dan button ke kiri */
+        flex-direction: column; /* Susun search di atas, Add di bawah */
+        gap: 10px;
+    }
+
+    .right-side-main-box .search-wrapper {
+        width: 100%;            /* Lebar penuh */
+        justify-content: flex-start;
+    }
+
+    .right-side-main-box .search-wrapper input[type='text'] {
+        width: 100%;            /* Input penuh di layar kecil */
+        max-width: 400px;       /* Batas lebar opsional */
+    }
+
+    .main-box {
+        max-height: none;       /* Biar box tidak terlalu pendek di mobile */
+    }
+
+    .chart {
+        min-width: auto;        /* Biar chart tidak memaksa 500px di layar kecil */
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Mobile kecil < 480px (opsional, kalau mau lebih detail) */
+@media (max-width: 480px) {
+    .title {
+        font-size: 24px; /* Sesuaikan ukuran judul */
+    }
+    .header-main-box {
+        margin: 5px;
+    }
+    .right-side-main-box .search-wrapper input[type='text'] {
+        max-width: 100%;
+    }
+}
+
+/* Style for labels */
+.child-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Add spacing between form elements */
+.child-box {
+    margin-bottom: 20px;
+}
+
+.messages {
+    margin: 20px 0;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.alert-error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+.alert-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.field-errors {
+    color: #c62828;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.error {
+    display: block;
+    margin-top: 3px;
+}

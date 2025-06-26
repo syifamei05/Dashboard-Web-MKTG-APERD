@@ -1,0 +1,73 @@
+
+{% block content %}
+<style>
+    .navbar {
+    background: #0056b3;  /* Blue background */
+    padding: 10px 20px;
+    box-shadow: 0px 5px hsl(211, 99%, 27%);
+    margin-bottom: 30px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    height: 60px;
+}
+
+.title {
+    color: white;
+    font-size: 30px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.date {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.logout-button {
+    background: white;
+    color: #0056b3;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logout-button i {
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background: #e0e0e0;
+    transition: 0.3s ease-in-out;
+}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<nav class="navbar">
+    <div class="nav-container">
+        <h1 class="title">MKTG APERD PNM-IM</h2>
+        <p class="date">Date: {{ today|date:"d F Y" }}</p>
+        {% if request.user %}
+        <a href="{% url 'logout' %}" class="logout-button">
+            Logout <i class="fa fa-sign-out"></i>
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}" class="logout-button">
+            Login <i class="fa fa-sign-out"></i>
+        </a>
+        {% endif %}
+    </div>
+</nav>
+{% endblock %}
